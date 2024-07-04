@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start" remove="true"/>
+        <referenceContainer name="top.links" remove="true"/>
+        <referenceContainer name="header.container" remove="true" />
+        <referenceContainer name="page.top" remove="true"/>
+        <referenceContainer name="columns.top" remove="true"/>
+        <referenceContainer name="main" remove="true"/>
+        <referenceContainer name="page.bottom.container" remove="true" />
+        <referenceContainer name="footer-container" remove="true" />
+        <referenceContainer name="before.body.end" remove="true" />
+        <referenceContainer name="content" remove="true"/>
+        <referenceContainer name="main.content">
+            <block name="maintenance_page_content"
+                   template="Faiz_MaintenanceMode::maintenance_page.phtml"
+                   class="Faiz\MaintenanceMode\Block\MaintenancePage"
+                   cacheable="false"
+            />
+        </referenceContainer>
+    </body>
+</page>

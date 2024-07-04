@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="faiz" sortOrder="9012">
+            <label>Faiz</label>
+        </tab>
+        <section id="maintenance" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>faiz</tab>
+            <resource>Faiz_MaintenanceMode::config</resource>
+            <class>separator-top</class>
+            <label>Maintenance Mode</label>
+            <group id="settings" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>General Settings</label>
+
+                <!-- Enable/Disable Module -->
+                <field id="is_enabled" translate="label" type="select" sortOrder="1" showInDefault="1">
+                    <label>Enable Maintenance Mode</label>
+                    <comment>Enable or disable the maintenance mode for your store.</comment>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <!-- Show Maintenance Notifier -->
+                <field id="notifier_enabled" translate="label" type="select" showInDefault="1" sortOrder="5">
+                    <label>Show Maintenance Notifier</label>
+                    <comment>If enabled, a notifier will be shown to users informing about maintenance.</comment>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="is_enabled">1</field>
+                    </depends>
+                </field>
+
+                <!-- Whitelist IPs -->
+                <field id="whitelist_ip" translate="label comment" type="textarea" sortOrder="10" showInDefault="1">
+                    <label>Whitelist IPs</label>
+                    <comment><![CDATA[Enter IP addresses allowed to access the site during maintenance. Separate multiple IPs with commas. Leave blank to allow all.]]></comment>
+                    <depends>
+                        <field id="is_enabled">1</field>
+                    </depends>
+                </field>
+
+                <!-- Start Time -->
+                <field id="start_time" translate="label" type="date" showInDefault="1" sortOrder="20">
+                    <label>Start Date</label>
+                    <comment>Set the start date for maintenance mode activation.</comment>
+                    <validate>required-entry</validate>
+                    <frontend_model>Faiz\MaintenanceMode\Block\Adminhtml\System\Config\Form\Field\Date</frontend_model>
+                    <depends>
+                        <field id="is_enabled">1</field>
+                    </depends>
+                </field>
+
+                <!-- End Time -->
+                <field id="end_time" translate="label" type="date" showInDefault="1" sortOrder="30">
+                    <label>End Date</label>
+                    <comment>Set the end date for maintenance mode deactivation.</comment>
+                    <validate>required-entry</validate>
+                    <frontend_model>Faiz\MaintenanceMode\Block\Adminhtml\System\Config\Form\Field\Date</frontend_model>
+                    <depends>
+                        <field id="is_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <!-- Maintenance Page Configuration -->
+            <group id="configuration" translate="label" type="array" sortOrder="2" showInDefault="1">
+                <label>Maintenance Page Configuration</label>
+                <depends>
+                    <field id="maintenance/settings/is_enabled">1</field>
+                </depends>
+
+                <!-- Page Title -->
+                <group id="maintenance_page" showInDefault="1" type="array" sortOrder="5" translate="label">
+                    <depends>
+                        <field id="maintenance/settings/is_enabled">1</field>
+                    </depends>
+                    <label>Maintenance Page Content</label>
+
+                    <!-- Page Title -->
+                    <field id="page_title" translate="label" sortOrder="1" showInDefault="1" type="text">
+                        <label>Maintenance Page Title</label>
+                        <validate>required-entry</validate>
+                    </field>
+
+                    <!-- Background Image -->
+                    <field id="bg_image" translate="label" type="image" sortOrder="5" showInDefault="1">
+                        <label>Background Image</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">faiz</upload_dir>
+                        <base_url type="media">faiz</base_url>
+                        <comment>Upload a background image for the maintenance page.</comment>
+                    </field>
+
+                    <!-- Background Color -->
+                    <field id="bg_color" translate="label" sortOrder="7" showInDefault="1" type="text">
+                        <label>Background Color</label>
+                        <validate>required-entry</validate>
+                        <frontend_model>Faiz\MaintenanceMode\Block\Adminhtml\System\Config\Form\Field\Color</frontend_model>
+                        <comment>Set the background color of the maintenance page.</comment>
+                    </field>
+
+                    <!-- Enable Countdown -->
+                    <field id="countdown_enabled" translate="label" type="select" sortOrder="10" showInDefault="1">
+                        <label>Enable Countdown</label>
+                        <validate>required-entry</validate>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>If enabled, a countdown timer will be displayed on the maintenance page.</comment>
+                    </field>
+
+                    <!-- HTML Content -->
+                    <field id="html_content" translate="label comment" type="editor" sortOrder="20" showInDefault="1">
+                        <label>Custom HTML Content</label>
+                        <frontend_model>Faiz\MaintenanceMode\Block\Adminhtml\System\Config\Form\Field\Editor</frontend_model>
+                        <comment><![CDATA[Custom HTML content to display on the maintenance page.]]></comment>
+                    </field>
+                </group>
+
+                <!-- Notifier Settings -->
+                <group id="notifier" translate="label" type="array" sortOrder="10" showInDefault="1">
+                    <depends>
+                        <field id="maintenance/settings/notifier_enabled">1</field>
+                    </depends>
+                    <label>Maintenance Notifier Settings</label>
+
+                    <!-- Text Content -->
+                    <field id="text_content" translate="label" sortOrder="10" showInDefault="1" type="text">
+                        <label>Notifier Text Content</label>
+                        <validate>required-entry</validate>
+                        <comment>Enter the text content to display in the maintenance notifier.</comment>
+                    </field>
+
+                    <!-- Notifier Background Color -->
+                    <field id="bg_color" translate="label" sortOrder="20" showInDefault="1" type="text">
+                        <label>Notifier Background Color</label>
+                        <validate>required-entry</validate>
+                        <frontend_model>Faiz\MaintenanceMode\Block\Adminhtml\System\Config\Form\Field\Color</frontend_model>
+                        <comment>Set the background color of the maintenance notifier.</comment>
+                    </field>
+
+                    <!-- Notifier Text Color -->
+                    <field id="text_color" translate="label" sortOrder="30" showInDefault="1" type="text">
+                        <label>Notifier Text Color</label>
+                        <validate>required-entry</validate>
+                        <frontend_model>Faiz\MaintenanceMode\Block\Adminhtml\System\Config\Form\Field\Color</frontend_model>
+                        <comment>Set the text color of the maintenance notifier.</comment>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

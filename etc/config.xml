@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <faiz>
+            <maintenance>
+                <settings>
+                    <is_enabled>1</is_enabled>
+                    <notifier_enabled>1</notifier_enabled>
+                    <whitelist_ip>127.0.0.1, ::1</whitelist_ip>
+                    <start_time>2024-07-01</start_time>
+                    <end_time>2024-07-15</end_time>
+                </settings>
+                <configuration>
+                    <maintenance_page>
+                        <page_title>Maintenance Page</page_title>
+                        <bg_color>#f5f5f5</bg_color>
+                        <countdown_enabled>1</countdown_enabled>
+                        <html_content><![CDATA[<p>We are currently undergoing maintenance. Please check back later.</p>]]></html_content>
+                    </maintenance_page>
+                    <notifier>
+                        <text_content>Website will go under maintenance.</text_content>
+                        <notifier_bg_color>#ff0000</notifier_bg_color>
+                        <notifier_text_color>#ffffff</notifier_text_color>
+                    </notifier>
+                </configuration>
+            </maintenance>
+        </faiz>
+    </default>
+</config>

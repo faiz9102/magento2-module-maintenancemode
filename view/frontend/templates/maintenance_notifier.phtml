@@ -1,0 +1,88 @@
+<?php
+/**
+ * @var \Faiz\MaintenanceMode\Block\MaintenanceNotifier $block
+ * @var \Faiz\MaintenanceMode\Block\MaintenanceNotifier $this
+ */
+?>
+<?php if ($block->getTimeDifference() > 0) { ?>
+    <style>
+        .notifier-wrapper {
+            background-color: <?php echo $block->getBackgroundColor(); ?>;
+            line-height: 2;
+            padding: 5px;
+            text-align: center;
+            font-size: 15px;
+            color: <?php echo $block->getTextColor(); ?>;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            gap : 5rem;
+        }
+        .notifier-text {
+            color: <?php echo $block->getTextColor(); ?>;
+        }
+        .timer-block {
+            display: inline-block;
+        }
+        .timer-block .smalltext {
+            font-size: 10px;
+        }
+        .num {
+            font-weight : 600;
+        }
+    </style>
+    <div class="notifier-wrapper">
+        <div class="notifier-text">
+            <?php echo $block->escapeHtml($block->getTextContent()); ?>
+        </div>
+        <div id="countdown" class="timer-block">
+            <span>
+                <span class="num days"></span>
+                <span class="smalltext">Days</span>
+            </span>
+            <span>
+                <span class="num hours"></span>
+                <span class="smalltext">Hours</span>
+            </span>
+            <span>
+                <span class="num minutes"></span>
+                <span class="smalltext">Minutes</span>
+            </span>
+            <span>
+                <span class="num seconds"></span>
+                <span class="smalltext">Seconds</span>
+            </span>
+        </div>
+    </div>
+    <script>
+        require(['jquery'], function ($) {
+            $(document).ready(function () {
+                const targetTimestamp = <?php echo $block->getStartTimeStamp() - $block->getTimeOffset();?> * 1000 ;
+
+                function updateCountdown() {
+                    var now = new Date().getTime();
+                    var timeLeft = targetTimestamp - now;
+
+                    if (timeLeft <= 0) {
+                        clearInterval(intervalId);
+                        timeLeft = 0;
+                    }
+
+                    var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                    $('#countdown .days').text(days);
+                    $('#countdown .hours').text(hours);
+                    $('#countdown .minutes').text(minutes);
+                    $('#countdown .seconds').text(seconds);
+                }
+
+                var intervalId = setInterval(updateCountdown, 1000);
+                updateCountdown();
+            });
+        });
+
+    </script>
+<?php } ?>
