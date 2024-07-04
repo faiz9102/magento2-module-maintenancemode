@@ -5,7 +5,7 @@
             <block name="maintenance.notice"
                    class="Faiz\MaintenanceMode\Block\MaintenanceNotifier"
                    template="Faiz_MaintenanceMode::maintenance_notifier.phtml"
-                   ifconfig="maintenance/settings/notifier"
+                   ifconfig="maintenance/settings/notifier_enabled"
             />
         </referenceContainer>
     </body>

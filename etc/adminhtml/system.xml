@@ -66,7 +66,7 @@
 
             <!-- Maintenance Page Configuration -->
             <group id="configuration" translate="label" type="array" sortOrder="2" showInDefault="1">
-                <label>Maintenance Page Configuration</label>
+                <label>Display Settings</label>
                 <depends>
                     <field id="maintenance/settings/is_enabled">1</field>
                 </depends>
@@ -76,7 +76,7 @@
                     <depends>
                         <field id="maintenance/settings/is_enabled">1</field>
                     </depends>
-                    <label>Maintenance Page Content</label>
+                    <label>Maintenance Page Configuration</label>
 
                     <!-- Page Title -->
                     <field id="page_title" translate="label" sortOrder="1" showInDefault="1" type="text">
@@ -122,7 +122,7 @@
                     <depends>
                         <field id="maintenance/settings/notifier_enabled">1</field>
                     </depends>
-                    <label>Maintenance Notifier Settings</label>
+                    <label>Maintenance Notifier Configuration</label>
 
                     <!-- Text Content -->
                     <field id="text_content" translate="label" sortOrder="10" showInDefault="1" type="text">

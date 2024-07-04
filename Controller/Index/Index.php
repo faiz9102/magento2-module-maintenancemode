@@ -39,6 +39,8 @@ class Index extends Action implements HttpGetActionInterface
         if (isset($title) && $title !== "") {
             $resultPage->getConfig()->getTitle()->set($title);
         }
+        if($this->helper->getMaintenanceModeStatus())
+            $this->getResponse()->setHttpResponseCode(503);
 
         return $resultPage;
     }
